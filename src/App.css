@@ -10,3 +10,9 @@ body {
   margin: 0;
   padding: 0;
 }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar:horizontal { height: 3px}
+::-webkit-scrollbar-track { border-radius: 10px; }
+::-webkit-scrollbar-track-piece  { background: transparent;  }
+::-webkit-scrollbar-thumb { border-radius: 3px; background: #CDD3D9; }

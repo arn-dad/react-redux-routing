@@ -17,10 +17,10 @@ function App() {
       <Router>
         <header>
           <nav>
-            <ul>
+            {/* <ul>
               <li><NavLink activeClassName="activeRoute" exact to="/">Home</NavLink ></li>
               <li><NavLink activeClassName="activeRoute" exact to="/main">Main</NavLink ></li>
-            </ul>
+            </ul> */}
           </nav>
         </header>
           <div className="main">

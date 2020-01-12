@@ -1,0 +1,30 @@
+
+.main {
+  width: 250px;
+  margin: 0 auto;
+}
+
+.posts-list {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 250px);
+  overflow-y: overlay;
+  width: 250px;
+  margin-bottom: 25px;
+}
+
+.upload-box {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  padding-bottom: 15px;
+}
+
+.upload-box > input {
+  margin-bottom: 15px;
+}
+
+.img-box {
+  width: 100%;
+  height: auto;
+}
