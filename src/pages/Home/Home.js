@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { ProgressBar } from 'react-bootstrap'
 import { projectInit } from '../../actions'
 import axios from 'axios';
 import './home.styles.css';
@@ -10,7 +11,8 @@ const Home = (props) => {
     title: '',
     author: ''
   })
-  const [views, setViews] = useState([])
+  const [views, setViews] = useState([]);
+  const [progress, updateProgressBarValue] = useState(0)
   useEffect(() => {
     props.projectInit()
     axios.get('https://it-blog-posts.herokuapp.com/api/views').then(res => {
@@ -30,7 +32,13 @@ const Home = (props) => {
     const data = new FormData() 
     data.append('file', state.file)
     try {
-      const uploadedFile = await axios.post("https://it-blog-posts.herokuapp.com/api/attachments/picture/upload", data)
+      const uploadedFile = await axios.post("https://it-blog-posts.herokuapp.com/api/attachments/picture/upload", data, { onUploadProgress: (progressEvent) => {
+        const totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');
+        if (totalLength !== null) {
+            updateProgressBarValue(Math.round((progressEvent.loaded * 100) / totalLength ));
+        }}
+      })
+      updateProgressBarValue(0)
       const fileName = uploadedFile.data.result.files.file[0].name;
       const createdView = await axios.post("https://it-blog-posts.herokuapp.com/api/views", {
         title: state.title,
@@ -52,6 +60,7 @@ const Home = (props) => {
         <input type="text" name='author' placeholder='Author' value={state.author} onChange={handleTextChange} />
         <input onChange={handleInputChange} accept="images/*" type="file"/>
         <button onClick={uploadFile}>Upload</button>
+        {!!progress && <ProgressBar animated now={progress} />}
       </div>
       <div className="posts-list">
         {views.map(view => {

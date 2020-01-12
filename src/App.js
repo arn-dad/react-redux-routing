@@ -8,7 +8,7 @@ import {
 import Home from './pages/Home/Home';
 import Main from './pages/Main/Main';
 import NoMatch from './pages/404';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 function App() {
